@@ -1,9 +1,9 @@
 # javascript_seminar_meeting group
-### Install BigBlueButton v2.3 Dev on dedicated Ubuntu 18.04 amd64 Server (4G RAM needed)[^1]
+### Install BigBlueButton v2.3 Dev on dedicated Ubuntu 18.04 amd64 Server (4G RAM needed)
 ```bash 
 $ wget -qO- https://ubuntu.bigbluebutton.org/bbb-install.sh | bash -s -- -v bionic-230-dev -a
 ```
-[^1]: installation can take 2+ hours
+* installation can take 2+ hours
 
 ### Get Credentials
 ```bash

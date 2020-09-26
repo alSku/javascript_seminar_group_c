@@ -17,12 +17,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alSku/javascript_seminar_group_c.git"
+    "url": "git+https://github.com/alSku/javascript_seminar_meeting.git"
   },
   "author": "alSku",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/alSku/javascript_seminar_group_c/issues"
+    "url": "https://github.com/alSku/javascript_seminar_meeting/issues"
   },
-  "homepage": "https://github.com/alSku/javascript_seminar_group_c#readme"
+  "homepage": "https://github.com/alSku/javascript_seminar_meeting#readme"
 }
