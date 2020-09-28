@@ -1,35 +1,29 @@
-require('dotenv').config()
+require('dotenv').config();
 
-const express = require('express')
-const compression = require('compression')
-const morgan = require('morgan')
-const bbb = require('bigbluebutton-js')
+const express = require('express');
+const compression = require('compression');
+const morgan = require('morgan');
+const bbb = require('bigbluebutton-js');
 
-const app = express()
+const app = express();
 
-const bbbHost = process.env.BBB_URL
-const bbbSecret = process.env.BBB_SECRET
+const bbbHost = process.env.BBB_URL;
+const bbbSecret = process.env.BBB_SECRET;
 
-let api = bbb.api(bbbHost, bbbSecret)
-let http = bbb.http
+let api = bbb.api(bbbHost, bbbSecret);
+let http = bbb.http;
 
-app.use(morgan('dev'))
-app.use(compression({ level: 6, filter: shouldCompress }))
+app.use(morgan('dev'));
+app.use(compression({ level: 6, filter: shouldCompress }));
 
-require("./app")(app);
-
-
-
+require('./app')(app);
 
 function shouldCompress (req, res) {
 	if (req.headers['x-no-compression'])
-		return false
+		return false;
 
-	return compression.filter(req, res)
+	return compression.filter(req, res);
 }
-
-
-
 
 // // api module itself is responsible for constructing URLs
 // let meetingCreateUrl = api.administration.create('My Meeting', '1', {

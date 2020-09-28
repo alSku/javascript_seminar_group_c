@@ -9,11 +9,12 @@ const key = process.env.BBB_P_KEY;
 const cert = process.env.BBB_P_CERT;
 
 module.exports = function (app) {
+	app.use(require('./routes/v1'));
 
 	const options = {
 		key: fs.readFileSync(key),
-		cert: fs.readFileSync(cert)
-	}
+		cert: fs.readFileSync(cert),
+	};
 
 	spdy.createServer(options, app).listen(port, (err) => {
 		if (err) {
