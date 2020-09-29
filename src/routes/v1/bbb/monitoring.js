@@ -1,9 +1,10 @@
-const router = require('express-promise-router')();
-const { bbb } = require('../../../bbb/module');
-const bodyParser = require('body-parser');
 const axios = require('axios');
-const { isValidUrl } = require('../../../utils');
+const bodyParser = require('body-parser');
+const router = require('express-promise-router')();
 const xml2js = require('xml2js');
+
+const { bbb } = rootRequire('/bbb/module');
+const { isValidUrl } = rootRequire('/utils');
 
 // https://attacomsian.com/blog/nodejs-convert-xml-to-json#async-await
 
@@ -21,7 +22,7 @@ router.get(route + '/get_meetings', async (req, res, next) => {
 			const result = await xml2js.parseStringPromise(xmlResponse.data,
 				{ mergeAttrs: true });
 			res.json(result);
-		}	catch (error) {
+		} catch (error) {
 			res.status(500).json('Could not get meetings');
 		}
 	}

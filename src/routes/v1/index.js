@@ -10,6 +10,25 @@ const urlencodedParser = bodyParser.urlencoded({
 });
 
 // todo: add guard route here
+
+router.get('/', async (req, res, next) => {
+	res.sendStatus(401);
+	next();
+});
+
+router.post('/', urlencodedParser, async (req, res, next) => {
+
+	if (!req.body)
+		return res.sendStatus(400);
+
+	console.log(req.body);
+	await res.status(418).json(req.body);
+});
+
+router.use(subroute + api_url, require('./bbb'));
+
+module.exports = router;
+
 /**
  * @swagger
  * tags:
@@ -29,10 +48,6 @@ const urlencodedParser = bodyParser.urlencoded({
  *      200:
  *        description: always
  */
-router.get('/', async (req, res, next) => {
-	res.sendStatus(200);
-	next();
-});
 
 /**
  * @swagger
@@ -46,15 +61,3 @@ router.get('/', async (req, res, next) => {
  *      200:
  *        description: always
  */
-router.post('/', urlencodedParser, async (req, res, next) => {
-
-	if (!req.body)
-		return res.sendStatus(400);
-
-	console.log(req.body);
-	await res.status(418).json(req.body);
-});
-
-router.use(subroute + api_url, require('./bbb'));
-
-module.exports = router;

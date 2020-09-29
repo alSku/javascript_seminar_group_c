@@ -1,3 +1,4 @@
+global.rootRequire = name => require(`${__dirname}/${name}`);
 require('dotenv').config();
 
 const express = require('express');
