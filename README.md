@@ -22,6 +22,8 @@ PS npm i
 BBB_BRIDGE_PORT=3000
 BBB_URL=http://example.com/bigbluebutton/
 BBB_SECRET=eXaMpLeSaLt
+BBB_P_KEY=path_to_key
+BBB_P_CERT=path_to_cert
 ```
 
 ### 5. Setup key cert
