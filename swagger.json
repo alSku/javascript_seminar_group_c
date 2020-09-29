@@ -1,0 +1,40 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "javascript_seminar_meeting",
+    "version": "0.0.0"
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "default"
+        ],
+        "description": "status code 200",
+        "responses": {
+          "200": {
+            "description": "always"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "default"
+        ],
+        "description": "status code 200",
+        "responses": {
+          "200": {
+            "description": "always"
+          }
+        }
+      }
+    }
+  },
+  "components": {},
+  "tags": [
+    {
+      "name": "default",
+      "description": "the default group"
+    }
+  ]
+}

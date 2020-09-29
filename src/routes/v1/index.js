@@ -1,19 +1,51 @@
 const router = require('express-promise-router')(); // The developer is always right
 const bodyParser = require('body-parser');
 
+const subroute = '/bbbbridge';
 const api_url = '/api/v1';
+
 const jsonParser = bodyParser.json();
 const urlencodedParser = bodyParser.urlencoded({
 	extended: false,
 });
 
 // todo: add guard route here
+/**
+ * @swagger
+ * tags:
+ *  - name: default
+ *    description: the default group
+ */
 
+/**
+ * @swagger
+ *
+ * /:
+ *  get:
+ *    tags:
+ *    - default
+ *    description: status code 200
+ *    responses:
+ *      200:
+ *        description: always
+ */
 router.get('/', async (req, res, next) => {
 	res.sendStatus(200);
 	next();
 });
 
+/**
+ * @swagger
+ *
+ * /:
+ *  post:
+ *    tags:
+ *    - default
+ *    description: status code 200
+ *    responses:
+ *      200:
+ *        description: always
+ */
 router.post('/', urlencodedParser, async (req, res, next) => {
 
 	if (!req.body)
@@ -23,6 +55,6 @@ router.post('/', urlencodedParser, async (req, res, next) => {
 	await res.status(418).json(req.body);
 });
 
-router.use(api_url, require('./bbb'));
+router.use(subroute + api_url, require('./bbb'));
 
 module.exports = router;

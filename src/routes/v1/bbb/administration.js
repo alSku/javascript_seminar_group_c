@@ -1,10 +1,9 @@
 const router = require('express-promise-router')();
-const { get_api, get_http } = require('../../../bbb/module');
+const { bbb } = require('../../../bbb/module');
 const bodyParser = require('body-parser');
 
-// why does this even work #it-just-works-**16x the details**
-const api = get_api();
-const http = get_http();
+const api = bbb.api;
+const http = bbb.http;
 
 const urlencodedParser = bodyParser.urlencoded({
 	extended: false,
@@ -12,13 +11,11 @@ const urlencodedParser = bodyParser.urlencoded({
 
 const route = '/administration';
 
-router.post(route + '/create_meeting', urlencodedParser,
-	async (req, res, next) => {
+router.post(route + '/create', urlencodedParser,	async (req, res, next) => {
 
 		if (!req.body)
 			return res.sendStatus(400);
 
-		console.dir(req.body);
 		const b = req.body;
 
 		// api module itself is responsible for constructing URLs

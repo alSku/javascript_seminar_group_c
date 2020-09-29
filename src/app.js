@@ -1,8 +1,6 @@
-const express = require('express');
 const spdy = require('spdy');
 const db = require('./db');
 const fs = require('fs');
-const path = require('path');
 
 const port = process.env.BBB_BRIDGE_PORT;
 const key = process.env.BBB_P_KEY;
