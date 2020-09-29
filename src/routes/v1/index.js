@@ -1,5 +1,5 @@
-const router = require('express-promise-router')(); // The developer is always right
 const bodyParser = require('body-parser');
+const router = require('express-promise-router')(); // The developer is always right
 
 const subroute = '/bbbbridge';
 const api_url = '/api/v1';

@@ -1,6 +1,8 @@
-const router = require('express-promise-router')();
-const { bbb } = rootRequire('bbb/module');
+const axios = require('axios');
 const bodyParser = require('body-parser');
+const router = require('express-promise-router')();
+
+const { bbb } = rootRequire('bbb/module');
 
 const api = bbb.api;
 const http = bbb.http;
@@ -10,6 +12,49 @@ const urlencodedParser = bodyParser.urlencoded({
 });
 
 const route = '/administration';
+
+/**
+ * {
+ *   name:            [meeting name]
+ *   meetingId:       [meeting Id]
+ *   attendeePW:      [Attendee password]
+ *   moderatorPW:     [Moderator password]
+ *   welcome:         [Chat welcome message]
+ *   dialNumber:      [Cell phone access number]
+ *   voiceBridge:     [FreeSWITCH voice conference number]
+ *   maxParticpants:  [Maximum number of participants]
+ *   logoutURL:       [Redirct URL after logout]
+ *   record:          [Enable/disable meeting record]
+ *   duration:        [Meeting maximum duration]
+ *
+ *   isBreakout:      [true for a breakout room]
+ *   parentMeetingId: [Top-level meeting id of the breakout room]
+ *   sequence:        [Breakout room sequence number]
+ *   freeJoin:        [true allows user to have a choice of breakout room to join]
+ *
+ *   meta:                    [Meeting metadata]
+ *   moderatorOnlyMessage:    [Moderator only chat message]
+ *   autoStartRecording:      [true will instruct to start recording on first user join]
+ *   allowStartStopRecording: [Allow users to start/stop recordings]
+ *   webcamsOnlyForModerator: [Users webcams are only seeing by moderators]
+ *   logo:                    [Default logo in Flash client]
+ *   bannerText:              [Banner text]
+ *   bannerColor:             [Banner background color]
+ *   copyright:               [Copyright text]
+ *   muteOnStart:             [Mute all users on meeting start]
+ *   allowModsToUnmuteUsers:  [Allow moderators to unmute users]
+ *
+ *   lockSettingsDisableCam:              [true will prevent users from sharing webcams]
+ *   lockSettingsDisableMic:              [true will prevent users from sharing microphones]
+ *   lockSettingsDisablePrivateChat:      [true will disable private chats]
+ *   lockSettingsDisablePublicChat:       [true will disable public chat]
+ *   lockSettingsDisableNote:             [true will disable notes]
+ *   lockSettingsLockedLayout:            [true will lock meeting layout]
+ *   lockSettingsLockOnJoin:              [false will disable applying settings]
+ *   lockSettingsLockOnJoinConfigurable:  [true will allow applying lockSettingsLockOnJoin]
+ *   guestPolicy:                         [Possible values: ALWAYS_ACCEPT, ALWAYS_DENY, ASK_MODERATOR]
+ * }
+ */
 
 router.post(route + '/create', urlencodedParser, async (req, res, next) => {
 
