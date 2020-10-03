@@ -1,4 +1,7 @@
 # javascript_seminar_meeting group
+
+## Setup for Windows code host and Ubuntu bbb server
+
 ### 1. Install BigBlueButton v2.3 Dev on dedicated Ubuntu 18.04 amd64 Server (4G RAM needed)
 ```bash 
 $ wget -qO- https://ubuntu.bigbluebutton.org/bbb-install.sh | bash -s -- -v bionic-230-dev -a
@@ -12,7 +15,7 @@ $ bbb-conf --secret
       Salt: eXaMpLeSaLt
 ```
 
-### 3. Install dependencies
+### 3. Clone repository on Windows and install dependencies
 ```scala
 PS npm i
 ``` 
