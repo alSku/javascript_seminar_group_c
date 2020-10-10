@@ -11,18 +11,26 @@
     "bigbluebutton-js": "^0.1.0",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-promise-router": "^4.0.1",
+    "helmet": "^4.1.1",
     "morgan": "^1.10.0",
     "spdy": "^4.0.2",
     "swagger-jsdoc": "^4.2.0",
     "xml2js": "^0.4.23"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/node": "^7.10.5",
+    "@babel/preset-env": "^7.11.5",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "nodemon": "^2.0.4"
+  },
   "scripts": {
-    "start": "node src/main.js",
-    "dev": "nodemon src/main.js"
+    "start": "babel-node src/main.js",
+    "dev": "nodemon --ignore 'public/' --exec babel-node src/main.js"
   },
   "repository": {
     "type": "git",

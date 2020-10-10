@@ -1,24 +1,28 @@
-const bodyParser = require('body-parser');
-const router = require('express-promise-router')(); // The developer is always right
+import bodyParser from 'body-parser';
+import Router from 'express-promise-router';
 
-const { isEmpty } = rootRequire('utils');
+import { isEmpty } from '~/utils';
 
-const subroute = '/bbbbridge';
+// routers
+import { bbbRouter } from './bbb';
+
+const rootRouter = Router();
+
+const subRoute = '/bbbbridge';
 const api_url = '/api/v1';
 
 const jsonParser = bodyParser.json();
-const urlencodedParser = bodyParser.urlencoded({
-	extended: false,
-});
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 // todo: add guard route here
 
-router.get('/', async (req, res) => {
+//home
+rootRouter.get('/', async (req, res) => {
 	console.log(req.query);
 	res.json(req.query);
 });
 
-router.post('/', urlencodedParser, async (req, res, next) => {
+rootRouter.post('/', urlencodedParser, async (req, res, next) => {
 
 	if (!req.body)
 		return res.sendStatus(400);
@@ -30,7 +34,7 @@ router.post('/', urlencodedParser, async (req, res, next) => {
 	}
 });
 
-router.post('/', jsonParser, async (req, res, next) => {
+rootRouter.post('/', jsonParser, async (req, res, next) => {
 
 	if (!req.body)
 		return res.sendStatus(400);
@@ -38,9 +42,9 @@ router.post('/', jsonParser, async (req, res, next) => {
 	await res.status(418).json(req.body);
 });
 
-router.use(subroute + api_url, require('./bbb'));
+rootRouter.use(subRoute + api_url, bbbRouter);
 
-module.exports = router;
+export { rootRouter };
 
 /**
  * @swagger

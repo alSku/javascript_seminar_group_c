@@ -1,12 +1,17 @@
-const router = require('express-promise-router')();
+import Router from 'express-promise-router';
 
+// routers
+import { administrationRouter } from './administration';
+import { monitoringRouter } from './monitoring';
+
+const bbbRouter = Router();
 const route = '/bbb';
 
-router.use(route, require('./administration'));
-router.use(route, require('./monitoring'));
+bbbRouter.use(route, administrationRouter);
+bbbRouter.use(route, monitoringRouter);
 
-router.get(route, async (req, res, next) => {
+bbbRouter.get(route, async (req, res, next) => {
 	await res.sendStatus(200);
 });
 
-module.exports = router;
+export { bbbRouter };

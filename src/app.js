@@ -1,13 +1,29 @@
-const spdy = require('spdy');
-const db = require('./db');
-const fs = require('fs');
+import express from 'express';
+import fs from 'fs';
+import spdy from 'spdy';
+
+import { rootRouter } from './routes/v1';
 
 const port = process.env.BBB_BRIDGE_PORT;
 const key = process.env.BBB_P_KEY;
 const cert = process.env.BBB_P_CERT;
 
-module.exports = function (app) {
-	app.use(require('./routes/v1'));
+const staticFilesRoot = 'public';
+
+function Server (app) {
+
+	app.get('/bbb', (req, res, next) => {
+		res.redirect('/bbb/client');
+	});
+
+	app.use('/bbb/client', express.static(staticFilesRoot));
+
+	// let angular handle the rest, send them to the index file
+	app.all('/bbb/client/*', async (_req, res) => {
+		res.status(200).sendFile(`/`, { root: staticFilesRoot });
+	});
+
+	app.use(rootRouter);
 
 	const options = {
 		key: fs.readFileSync(key),
@@ -22,4 +38,6 @@ module.exports = function (app) {
 			console.log(`Listening on port ${port}`);
 		}
 	});
-};
+}
+
+export { Server };

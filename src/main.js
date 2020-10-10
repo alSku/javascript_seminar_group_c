@@ -1,20 +1,29 @@
-global.rootRequire = name => require(`${__dirname}/${name}`);
-require('dotenv').config();
+import 'dotenv/config';
 
-const express = require('express');
-const compression = require('compression');
-const morgan = require('morgan');
+import Compression from 'compression';
+import Cors from 'cors';
+import Express from 'express';
+import Helmet from 'helmet';
+import Morgan from 'morgan';
 
-const app = express();
-app.use(morgan('dev'));
-app.use(compression({ level: 6, filter: shouldCompress }));
+import { Server } from '~/app';
+import { shouldCompress } from '~/utils';
 
-// so great, it just works
-require('./app')(app);
+const app = Express();
+const compression = Compression({ level: 6, filter: shouldCompress });
+const cors = Cors();
+const helmet = Helmet();
+const morgan = Morgan('dev');
 
-function shouldCompress (req, res) {
-	if (req.headers['x-no-compression'])
-		return false;
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = '0';
 
-	return compression.filter(req, res);
-}
+app.use(compression);
+app.use(cors);
+
+// set security HTTP headers
+app.use(helmet);
+app.use(morgan);
+
+Server(app);
+
+

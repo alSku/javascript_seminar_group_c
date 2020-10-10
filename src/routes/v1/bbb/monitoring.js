@@ -1,35 +1,36 @@
-const axios = require('axios');
-const bodyParser = require('body-parser');
-const router = require('express-promise-router')();
-const xml2js = require('xml2js');
+import axios from 'axios';
+import Router from 'express-promise-router';
+import xml2js from 'xml2js';
 
-const { bbb } = rootRequire('/bbb/module');
-const { isValidUrl } = rootRequire('/utils');
+import { bbb } from '~/bbb/module';
+import { isValidUrl } from '~/utils';
 
-// https://attacomsian.com/blog/nodejs-convert-xml-to-json#async-await
+const monitoringRouter = Router();
 
 const api = bbb.api;
 const http = bbb.http;
 
 const route = '/monitoring';
 
-router.get(route + '/get_meetings', async (req, res, next) => {
+monitoringRouter.get(route + '/get_meetings', async (req, res, next) => {
 	const meetings = api.monitoring.getMeetings();
+
+	// https://attacomsian.com/blog/nodejs-convert-xml-to-json#async-await
 
 	if (isValidUrl(meetings)) {
 		try {
 			const xmlResponse = await axios.get(meetings);
 			const result = await xml2js.parseStringPromise(xmlResponse.data,
 				{ mergeAttrs: true });
-			res.json(result);
+			res.status(200).json(result.response);
 		} catch (error) {
 			res.status(500).json('Could not get meetings');
 		}
 	}
 });
 
-router.get(route, async (req, res, next) => {
+monitoringRouter.get(route, async (req, res, next) => {
 	await res.sendStatus(402);
 });
 
-module.exports = router;
+export { monitoringRouter };

@@ -1,4 +1,4 @@
-const bbb = require('bigbluebutton-js');
+import bbb from 'bigbluebutton-js';
 
 // https://aakatev.github.io/bigbluebutton-js-docs/docs/reference/api/
 
