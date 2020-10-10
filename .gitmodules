@@ -4,3 +4,6 @@
 [submodule "javascript_seminar_frontend"]
 	path = javascript_seminar_frontend
 	url = https://github.com/PhantomSquirrel7/javascript_seminar_frontend.git
+[submodule "meeting_frontend"]
+	path = meeting_frontend
+	url = https://github.com/alSku/meeting_frontend.git
