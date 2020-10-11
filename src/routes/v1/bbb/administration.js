@@ -75,6 +75,7 @@ administrationRouter.post(route + '/create', urlencodedParser,
 		});
 
 		let meetingInfo = {};
+		console.log(meetingCreateUrl)
 
 		// http method should be used in order to make calls
 		await http(meetingCreateUrl).then((result) => {
@@ -94,6 +95,29 @@ administrationRouter.post(route + '/create', urlencodedParser,
 			meetingInfo.meetingEndUrl = meetingEndUrl;
 			meetingInfo.result = result;
 		});
+
+		await res.status(200).json(meetingInfo);
+	});
+
+administrationRouter.post(route + '/join', urlencodedParser,
+	async (req, res, next) => {
+
+		if (!req.body)
+			return res.sendStatus(400);
+
+		const b = req.body;
+
+		// console.log(b);
+
+		// api module itself is responsible for constructing URLs
+		// password is either moderatorPW/attendeePW
+		let meetingJoinUrl = api.administration.join(b.fullName, b.meetingId, b.password);
+
+		let meetingInfo = {};
+		meetingInfo.attendeeName = b.fullName
+		meetingInfo.meetingId = b.meetingId
+		meetingInfo.password = b.password
+		meetingInfo.joinURL = meetingJoinUrl
 
 		await res.status(200).json(meetingInfo);
 	});
