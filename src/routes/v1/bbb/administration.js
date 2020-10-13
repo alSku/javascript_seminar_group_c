@@ -122,6 +122,29 @@ administrationRouter.post(route + '/join', urlencodedParser,
 		await res.status(200).json(meetingInfo);
 	});
 
+	administrationRouter.post(route + '/end', urlencodedParser,
+	async (req, res, next) => {
+
+		if (!req.body)
+			return res.sendStatus(400);
+
+		const b = req.body;
+
+		// console.log(b);
+
+		// api module itself is responsible for constructing URLs
+		// password has to be moderatorPW
+		let meetingEndUrl = api.administration.end(b.meetingId, b.moderatorPW);
+
+		let meetingInfo = {};
+		meetingInfo.attendeeName = b.fullName
+		meetingInfo.meetingId = b.meetingId
+		meetingInfo.moderatorPW = b.moderatorPW;
+		meetingInfo.endURL = meetingEndUrl
+
+		await res.status(200).json(meetingInfo);
+	});
+
 administrationRouter.get(route, async (req, res, next) => {
 	await res.sendStatus(402);
 });
