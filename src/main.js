@@ -12,7 +12,23 @@ import { shouldCompress } from '~/utils';
 const app = Express();
 const compression = Compression({ level: 6, filter: shouldCompress });
 const cors = Cors();
-const helmet = Helmet();
+
+const helmet = Helmet.contentSecurityPolicy(
+    {
+      directives: {
+        defaultSrc: ["'self'", "https://ubuntu-server"],
+        baseUri: ["'self'"],
+        fontSrc: ["'self'", "https:", "data"],
+        frameAncestors: ["'self'", "https://ubuntu-server"],
+        imgSrc: ["'self'", "data:"],
+        objectSrc: ["'none'"],
+        scriptSrc: ["'self'", "https://ubuntu-server"],
+        scriptSrcAttr: ["'none'"],
+        styleSrc: ["'self'", "https:", "'unsafe-inline'"],
+        upgradeInsecureRequests: [],
+      },
+    });
+
 const morgan = Morgan('dev');
 
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = '0';
