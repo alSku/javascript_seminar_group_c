@@ -13,25 +13,26 @@ const app = Express();
 const compression = Compression({ level: 6, filter: shouldCompress });
 const cors = Cors();
 
-const helmet = Helmet.contentSecurityPolicy(
+const helmet = Helmet(
     {
-      directives: {
-        defaultSrc: ["'self'", "https://ubuntu-server"],
-        baseUri: ["'self'"],
-        fontSrc: ["'self'", "https:", "data"],
-        frameAncestors: ["'self'", "https://ubuntu-server"],
-        imgSrc: ["'self'", "data:"],
-        objectSrc: ["'none'"],
-        scriptSrc: ["'self'", "https://ubuntu-server"],
-        scriptSrcAttr: ["'none'"],
-        styleSrc: ["'self'", "https:", "'unsafe-inline'"],
-        upgradeInsecureRequests: [],
-      },
+      contentSecurityPolicy : {
+        directives: {
+          defaultSrc: ["'self'", "https://jsseminarbbb.duckdns.org"],
+          baseUri: ["'self'"],
+          fontSrc: ["'self'", "https:", "data"],
+          frameAncestors: ["'self'", "https://jsseminarbbb.duckdns.org"],
+          imgSrc: ["'self'", "data:"],
+          objectSrc: ["'none'"],
+          scriptSrc: ["'self'", "https://jsseminarbbb.duckdns.org"],
+          scriptSrcAttr: ["'none'"],
+          styleSrc: ["'self'", "https:", "'unsafe-inline'"],
+          upgradeInsecureRequests: [],
+      }},
     });
 
 const morgan = Morgan('dev');
 
-process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = '0';
+//process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = '0';
 
 app.use(compression);
 app.use(cors);
