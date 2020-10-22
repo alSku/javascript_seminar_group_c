@@ -227,7 +227,7 @@ export { administrationRouter };
  *    requestBody:
  *      required: true
  *      content:
- *        application/json:
+ *        application/x-www-form-urlencoded:
  *          schema:
  *            type: object
  *            required:
@@ -355,7 +355,7 @@ export { administrationRouter };
  *    requestBody:
  *      required: true
  *      content:
- *        application/json:
+ *        application/x-www-form-urlencoded:
  *          schema:
  *            type: object
  *            required:
@@ -420,7 +420,7 @@ export { administrationRouter };
  *    requestBody:
  *      required: true
  *      content:
- *        application/json:
+ *        application/x-www-form-urlencoded:
  *          schema:
  *            type: object
  *            required:
