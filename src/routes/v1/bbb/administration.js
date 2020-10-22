@@ -66,8 +66,10 @@ administrationRouter.post(route + '/create', urlencodedParser,
 		Object.keys(kwParams).
 			forEach(key => kwParams[key] === undefined && delete kwParams[key]);
 
+		const uuid = uuidv4();
+
 		// api module itself is responsible for constructing URLs
-		let meetingCreateUrl = api.administration.create(b.meetingName, uuidv4(),
+		let meetingCreateUrl = api.administration.create(b.meetingName, uuid,
 			kwParams);
 
 		// console.log(meetingCreateUrl);
@@ -81,11 +83,11 @@ administrationRouter.post(route + '/create', urlencodedParser,
 				mergeAttrs: true,
 			});
 
-			let moderatorUrl = api.administration.join(b.moderator, b.meetingId,
+			let moderatorUrl = api.administration.join(b.moderator, uuid,
 				b.moderatorPW);
-			let attendeeUrl = api.administration.join(b.attendee, b.meetingId,
+			let attendeeUrl = api.administration.join(b.attendee, uuid,
 				b.attendeePW);
-			let meetingEndUrl = api.administration.end(b.meetingId, b.moderatorPW);
+			let meetingEndUrl = api.administration.end(uuid, b.moderatorPW);
 
 			meetingInfo.attendeeUrl = attendeeUrl;
 			meetingInfo.moderatorUrl = moderatorUrl;
