@@ -19,6 +19,7 @@
     "morgan": "^1.10.0",
     "spdy": "^4.0.2",
     "swagger-jsdoc": "^4.2.0",
+    "uuid": "^8.3.1",
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
@@ -31,7 +32,8 @@
   },
   "scripts": {
     "start": "babel-node src/main.js",
-    "dev": "nodemon --ignore 'public/' --exec babel-node src/main.js"
+    "dev": "nodemon --ignore 'public/' --exec babel-node src/main.js",
+    "swag": "swagger-jsdoc -d ./src/routes/v1/swaggerDef.js -o swagger.json"
   },
   "repository": {
     "type": "git",

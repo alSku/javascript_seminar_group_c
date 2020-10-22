@@ -46,35 +46,35 @@ rootRouter.use(subRoute + api_url, bbbRouter);
 
 export { rootRouter };
 
-/**
- * @swagger
- * tags:
- *  - name: default
- *    description: the default group
- */
-
-/**
- * @swagger
- *
- * /:
- *  get:
- *    tags:
- *    - default
- *    description: status code 200
- *    responses:
- *      200:
- *        description: always
- */
-
-/**
- * @swagger
- *
- * /:
- *  post:
- *    tags:
- *    - default
- *    description: status code 200
- *    responses:
- *      200:
- *        description: always
- */
+// /**
+//  * @swagger
+//  * tags:
+//  *  - name: default
+//  *    description: the default group
+//  */
+//
+// /**
+//  * @swagger
+//  *
+//  * /:
+//  *  get:
+//  *    tags:
+//  *    - default
+//  *    description: status code 200
+//  *    responses:
+//  *      200:
+//  *        description: always
+//  */
+//
+// /**
+//  * @swagger
+//  *
+//  * /:
+//  *  post:
+//  *    tags:
+//  *    - default
+//  *    description: status code 200
+//  *    responses:
+//  *      200:
+//  *        description: always
+//  */

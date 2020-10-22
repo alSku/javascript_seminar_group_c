@@ -17,13 +17,13 @@ const helmet = Helmet(
     {
       contentSecurityPolicy : {
         directives: {
-          defaultSrc: ["'self'", "https://jsseminarbbb.duckdns.org"],
+          defaultSrc: ["'self'", "https://ubuntu-server"],
           baseUri: ["'self'"],
           fontSrc: ["'self'", "https:", "data"],
-          frameAncestors: ["'self'", "https://jsseminarbbb.duckdns.org"],
+          frameAncestors: ["'self'", "https://ubuntu-server"],
           imgSrc: ["'self'", "data:"],
           objectSrc: ["'none'"],
-          scriptSrc: ["'self'", "https://jsseminarbbb.duckdns.org"],
+          scriptSrc: ["'self'", "https://ubuntu-server"],
           scriptSrcAttr: ["'none'"],
           styleSrc: ["'self'", "https:", "'unsafe-inline'"],
           upgradeInsecureRequests: [],
@@ -32,7 +32,7 @@ const helmet = Helmet(
 
 const morgan = Morgan('dev');
 
-//process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = '0';
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = '0';
 
 app.use(compression);
 app.use(cors);

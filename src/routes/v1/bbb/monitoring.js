@@ -1,15 +1,13 @@
 import axios from 'axios';
+import bodyParser from 'body-parser';
 import Router from 'express-promise-router';
 import xml2js from 'xml2js';
-import bodyParser from 'body-parser';
 
 import { bbb } from '~/bbb/module';
-import { isValidUrl } from '~/utils';
 
 const monitoringRouter = Router();
 
 const api = bbb.api;
-const http = bbb.http;
 
 const urlencodedParser = bodyParser.urlencoded({
 	extended: false,
@@ -19,46 +17,18 @@ const route = '/monitoring';
 
 monitoringRouter.get(route + '/get_meetings', async (req, res, next) => {
 	const meetings = api.monitoring.getMeetings();
-	
-	// https://attacomsian.com/blog/nodejs-convert-xml-to-json#async-await
 
-	if (isValidUrl(meetings)) {
-		try {
-			const xmlResponse = await axios.get(meetings);
-			const result = await xml2js.parseStringPromise(xmlResponse.data,
-				{ mergeAttrs: true });
-			res.status(200).json(result.response);
-		} catch (error) {
-			res.status(500).json('Could not get meetings');
-		}
+	try {
+		const xmlResponse = await axios.get(meetings);
+		const result = await xml2js.parseStringPromise(xmlResponse.data,
+			{ mergeAttrs: true });
+		res.status(200).json(result.response);
+	} catch (error) {
+		res.status(500).json('Could not get meetings');
 	}
 });
 
-
-monitoringRouter.get(route + '/get_meeting_info',  urlencodedParser,
-	async (req, res, next) => {
-
-		if (!req.body)
-				return res.sendStatus(400);
-
-		const b = req.body;
-
-		const meetinginfo = api.monitoring.getMeetingInfo(b.meetingId);
-	
-		if (isValidUrl(meetinginfo)) {
-			try {
-				const xmlResponse = await axios.get(meetinginfo);
-				const result = await xml2js.parseStringPromise(xmlResponse.data,
-					{ mergeAttrs: true });
-				res.status(200).json(result.response);
-			} catch (error) {
-				res.status(500).json('Could not get meetings');
-			}
-		}
-});
-
-
-monitoringRouter.get(route + '/is_meeting_running', urlencodedParser,
+monitoringRouter.post(route + '/get_meeting_info', urlencodedParser,
 	async (req, res, next) => {
 
 		if (!req.body)
@@ -66,22 +36,140 @@ monitoringRouter.get(route + '/is_meeting_running', urlencodedParser,
 
 		const b = req.body;
 
-		const meetinginfo = api.monitoring.isMeetingRunning(b.meetingId);
+		if (b.meetingId === undefined)
+			return res.sendStatus(400);
 
-		if (isValidUrl(meetinginfo)) {
-			try {
-				const xmlResponse = await axios.get(meetinginfo);
-				const result = await xml2js.parseStringPromise(xmlResponse.data,
-					{ mergeAttrs: true });
-				res.status(200).json(result.response);
-			} catch (error) {
-				res.status(500).json('Could not get meetings');
-			}
+		const meetingInfo = api.monitoring.getMeetingInfo(b.meetingId);
+
+		try {
+			const xmlResponse = await axios.get(meetingInfo);
+			const result = await xml2js.parseStringPromise(xmlResponse.data,
+				{ mergeAttrs: true });
+
+			res.status(200).json(result.response);
+		} catch (error) {
+			res.status(500).json('Could not get meeting info');
 		}
-});
+	});
+
+monitoringRouter.post(route + '/is_meeting_running', urlencodedParser,
+	async (req, res, next) => {
+
+		if (!req.body)
+			return res.sendStatus(400);
+
+		const b = req.body;
+
+		if (b.meetingId === undefined)
+			return res.sendStatus(400);
+
+		const meetingInfo = api.monitoring.isMeetingRunning(b.meetingId);
+
+		try {
+			const xmlResponse = await axios.get(meetingInfo);
+			const result = await xml2js.parseStringPromise(xmlResponse.data,
+				{ mergeAttrs: true });
+			res.status(200).json(result.response);
+		} catch (error) {
+			res.status(500).json('Could not check if meeting is running');
+		}
+	});
 
 monitoringRouter.get(route, async (req, res, next) => {
-	await res.sendStatus(402);
+	await res.sendStatus(403);
 });
 
 export { monitoringRouter };
+
+/**
+ * @swagger
+ * tags:
+ *  - name: monitoring
+ *    description: monitoring calls
+ */
+
+/**
+ * @swagger
+ *
+ * /monitoring/get_meetings:
+ *  get:
+ *    summary: Gets meetings
+ *    tags:
+ *    - monitoring
+ *    responses:
+ *      200:
+ *        description: OK
+ *      500:
+ *        description: Internal Server Error
+ */
+
+/**
+ * @swagger
+ *
+ * /monitoring/get_meeting_info:
+ *  post:
+ *    summary: Gets meeting Info
+ *    tags:
+ *    - monitoring
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required:
+ *              - meetingId
+ *            properties:
+ *              meetingId:
+ *                type: string
+ *                description: The meeting ID that identifies the meeting you are attempting to check on.
+ *    responses:
+ *      200:
+ *        description: OK
+ *      400:
+ *        description: Bad Request
+ *      500:
+ *        description: Internal Server Error
+ */
+
+/**
+ * @swagger
+ *
+ * /monitoring/is_meeting_running:
+ *  post:
+ *    summary: Checks if meeting is running
+ *    tags:
+ *    - monitoring
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required:
+ *              - meetingId
+ *            properties:
+ *              meetingId:
+ *                type: string
+ *                description: The meeting ID that identifies the meeting you are attempting to check on.
+ *    responses:
+ *      200:
+ *        description: OK
+ *      400:
+ *        description: Bad Request
+ *      500:
+ *        description: Internal Server Error
+ */
+
+/**
+ * @swagger
+ *
+ * /monitoring:
+ *  get:
+ *    tags:
+ *    - monitoring
+ *    summary: Forbidden
+ *    responses:
+ *      403:
+ *        description: Forbidden
+ */

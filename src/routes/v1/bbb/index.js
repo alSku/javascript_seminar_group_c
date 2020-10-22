@@ -12,8 +12,28 @@ bbbRouter.use(route, administrationRouter);
 bbbRouter.use(route, monitoringRouter);
 bbbRouter.use(route, recordingRouter);
 
-bbbRouter.get(route, async (req, res, next) => {
-	await res.sendStatus(200);
+bbbRouter.get(route, async (req, res) => {
+	await res.sendStatus(403);
 });
 
 export { bbbRouter };
+
+/**
+ * @swagger
+ * tags:
+ *  - name: bbb
+ *    description: base route
+ */
+
+/**
+ * @swagger
+ *
+ * /:
+ *  get:
+ *    tags:
+ *    - bbb
+ *    summary: Forbidden
+ *    responses:
+ *      403:
+ *        description: Forbidden
+ */
