@@ -16,10 +16,10 @@ const urlencodedParser = bodyParser.urlencoded({
 const route = '/monitoring';
 
 monitoringRouter.get(route + '/get_meetings', async (req, res, next) => {
-	const meetings = api.monitoring.getMeetings();
+	const getMeetingsUrl = api.monitoring.getMeetings();
 
 	try {
-		const xmlResponse = await axios.get(meetings);
+		const xmlResponse = await axios.get(getMeetingsUrl);
 		const result = await xml2js.parseStringPromise(xmlResponse.data,
 			{ mergeAttrs: true });
 		res.status(200).json(result.response);
@@ -39,10 +39,10 @@ monitoringRouter.post(route + '/get_meeting_info', urlencodedParser,
 		if (b.meetingId === undefined)
 			return res.sendStatus(400);
 
-		const meetingInfo = api.monitoring.getMeetingInfo(b.meetingId);
+		const getMeetingInfoUrl = api.monitoring.getMeetingInfo(b.meetingId);
 
 		try {
-			const xmlResponse = await axios.get(meetingInfo);
+			const xmlResponse = await axios.get(getMeetingInfoUrl);
 			const result = await xml2js.parseStringPromise(xmlResponse.data,
 				{ mergeAttrs: true });
 
@@ -63,10 +63,10 @@ monitoringRouter.post(route + '/is_meeting_running', urlencodedParser,
 		if (b.meetingId === undefined)
 			return res.sendStatus(400);
 
-		const meetingInfo = api.monitoring.isMeetingRunning(b.meetingId);
+		const isMeetingRunningUrl = api.monitoring.isMeetingRunning(b.meetingId);
 
 		try {
-			const xmlResponse = await axios.get(meetingInfo);
+			const xmlResponse = await axios.get(isMeetingRunningUrl);
 			const result = await xml2js.parseStringPromise(xmlResponse.data,
 				{ mergeAttrs: true });
 			res.status(200).json(result.response);
