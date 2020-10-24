@@ -34,9 +34,9 @@ recordingRouter.post(route + '/get_recordings', urlencodedParser,
 		Object.keys(kwParams).
 			forEach(key => kwParams[key] === undefined && delete kwParams[key]);
 		
-		console.log(kwParams)
+		
 		let getRecordingsUrl = api.recording.getRecordings(kwParams);
-		console.log(getRecordingsUrl)
+		
 		try {
 			const xmlResponse = await axios.get(getRecordingsUrl);
 			const result = await xml2js.parseStringPromise(xmlResponse.data,
