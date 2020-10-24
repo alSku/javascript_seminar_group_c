@@ -26,16 +26,17 @@ recordingRouter.post(route + '/get_recordings', urlencodedParser,
 
 		// optional parameters
 		let kwParams = {};
-		kwParams.meetingId = b.meetingId;
+		kwParams.meetingID = b.meetingId;
 		kwParams.recordID = b.recordId;
 		kwParams.state = b.state;
 		kwParams.meta = b.meta;
 
 		Object.keys(kwParams).
 			forEach(key => kwParams[key] === undefined && delete kwParams[key]);
-
+		
+		console.log(kwParams)
 		let getRecordingsUrl = api.recording.getRecordings(kwParams);
-
+		console.log(getRecordingsUrl)
 		try {
 			const xmlResponse = await axios.get(getRecordingsUrl);
 			const result = await xml2js.parseStringPromise(xmlResponse.data,
