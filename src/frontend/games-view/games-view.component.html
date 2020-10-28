@@ -1,0 +1,7 @@
+<p>games-view works!</p>
+<h2> {{ title }}</h2>
+<div>
+    <ul style="list-style-type:none; margin:0; padding: 0;">
+        <li *ngFor="let task of tasks"><input type="checkbox"> {{task}}</li>
+    </ul>
+</div>
