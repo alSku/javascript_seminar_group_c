@@ -12,7 +12,7 @@ const staticFilesRoot = 'public';
 
 function Server (app) {
 
-	app.get('/bbb', (req, res, next) => {
+	app.get('/bbb', (req, res) => {
 		res.redirect('/bbb/client');
 	});
 

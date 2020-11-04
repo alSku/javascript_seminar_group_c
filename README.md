@@ -17,7 +17,7 @@ $ bbb-conf --secret
 
 ### 3. Clone repository on Windows and install dependencies
 ```scala
-PS npm i
+npm i
 ``` 
 
 ### 4. Configure .env file
@@ -28,18 +28,33 @@ BBB_SECRET=eXaMpLeSaLt
 BBB_P_KEY=path_to_key
 BBB_P_CERT=path_to_cert
 ```
+or inside backend **#integration**
+```ini
+...
+BBB_FQDN=http://example.com/bigbluebutton/
+BBB_SECRET=eXaMpLeSaLt
+BBB_P_KEY=path_to_key
+BBB_P_CERT=path_to_cert
+...
+```
 
-### 5. Setup key cert
-Get some help from stackoverflow  
-cert and key in **pem format**  
-gg ez
+### 5. Setup HDDBS (HTTPS)
+For development server: 
+1. Create self-signed certificate -> cert and key in **pem format**  
 
-### 6. Learn TLS
-HTTPS is mandatory, no voice or webcam support otherwise...
-  
-**...**
+For production server:
+1. Setup server with public dns 
+2. Create certificate with let's encrypt
+
 
 ### 42. Run and enjoy
 ```scala
-PS npm run start
+npm run start
+or
+npm run dev
 ```
+or inside backend **#integration**
+```scala
+npm run dev2
+```
+
