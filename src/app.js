@@ -25,19 +25,29 @@ function Server (app) {
 
 	app.use(rootRouter);
 
-	const options = {
-		key: fs.readFileSync(key),
-		cert: fs.readFileSync(cert),
-	};
+	if (process.env.HTTPS === 'true') {
+		const options = {
+			key: fs.readFileSync(key),
+			cert: fs.readFileSync(cert),
+		};
 
-	spdy.createServer(options, app).listen(port, (err) => {
-		if (err) {
-			console.error(err);
-			return process.exit(1);
-		} else {
+		spdy.createServer(options, app).listen(port, (err) => {
+			if (err) {
+				console.error(err);
+				return process.exit(1);
+			} else {
+				console.log(`Listening on port ${port}`);
+			}
+		});
+	} else {
+		app.listen(port, (err) => {
+			if (err) {
+				console.error(err);
+				return process.exit(1);
+			}
 			console.log(`Listening on port ${port}`);
-		}
-	});
+		});
+	}
 }
 
 export { Server };

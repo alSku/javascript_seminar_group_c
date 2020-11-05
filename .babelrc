@@ -1,15 +1,18 @@
 {
   "presets": [
-    "@babel/preset-env"
+    [
+      "@babel/preset-env"
+    ]
   ],
   "plugins": [
+    "@babel/plugin-transform-runtime",
     [
       "module-resolver",
       {
         "root": [
           "./src"
         ],
-        "alias" : {
+        "alias": {
           "~": "./src"
         }
       }
