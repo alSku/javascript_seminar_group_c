@@ -4,7 +4,7 @@ import spdy from 'spdy';
 
 import { rootRouter } from './routes/v1';
 
-const port = process.env.BBB_BRIDGE_PORT;
+const port = process.env.PORT;
 const key = process.env.BBB_P_KEY;
 const cert = process.env.BBB_P_CERT;
 
