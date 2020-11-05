@@ -37,7 +37,7 @@
     "build": "babel src --out-dir dist",
     "dev": "nodemon --ignore 'public/' --exec babel-node src/main.js",
     "heroku-postbuild": "npm run build",
-    "start": "npm run build && pm2 start ecosystem.config.json --no-daemon",
+    "start": "pm2 start ecosystem.config.json --no-daemon",
     "swag": "swagger-jsdoc -d ./src/routes/v1/swaggerDef.js -o swagger.json"
   },
   "repository": {
