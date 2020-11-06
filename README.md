@@ -22,7 +22,7 @@ npm i
 
 ### 4. Configure .env file
 ```ini
-BBB_BRIDGE_PORT=3000
+PORT=5000
 BBB_URL=http://example.com/bigbluebutton/
 BBB_SECRET=eXaMpLeSaLt
 BBB_P_KEY=path_to_key
@@ -38,7 +38,7 @@ BBB_P_CERT=path_to_cert
 ...
 ```
 
-### 5. Setup HDDBS (HTTPS)
+### 5. Setup HTTPS
 For development server: 
 1. Create self-signed certificate -> cert and key in **pem format**  
 
@@ -49,12 +49,13 @@ For production server:
 
 ### 42. Run and enjoy
 ```scala
+npm run build
 npm run start
 or
 npm run dev
 ```
 or inside backend **#integration**
 ```scala
-npm run dev2
+npm run dev
 ```
 
